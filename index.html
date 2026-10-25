@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wiki do Sociedade</title>
+<style>
+:root{--bg:#eef0f3;--panel:#e1e5eb;--ink:#1b2230;--mute:#5d6778;--acc:#17695f;--gold:#8a6a1f;--red:#b3332b;--line:#c4cbd6}
+@media(prefers-color-scheme:dark){:root{--bg:#11141c;--panel:#181c27;--ink:#e6e9ef;--mute:#8f99ab;--acc:#62c2b0;--gold:#d3b15a;--red:#e8786f;--line:#2a3142}}
+*{box-sizing:border-box}
+body{margin:0;display:flex;min-height:100vh;background:var(--bg);color:var(--ink);font:17px/1.65 "Iowan Old Style",Palatino,Georgia,serif}
+a{color:var(--acc)}a.red{color:var(--red)}
+#side{width:270px;flex:none;background:var(--panel);border-right:1px solid var(--line);padding:18px;position:sticky;top:0;height:100vh;overflow:auto;font:15px/1.4 system-ui,sans-serif}
+.brand{display:block;font:700 21px/1.2 "Iowan Old Style",Palatino,Georgia,serif;color:var(--ink);text-decoration:none;margin-bottom:14px}
+#q{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--ink);margin-bottom:14px;font:inherit}
+#nav details{margin-bottom:6px}#nav summary{cursor:pointer;font-weight:600;padding:3px 0}#nav summary a{color:var(--ink);text-decoration:none}
+#nav details>a{display:block;padding:2px 0 2px 14px;text-decoration:none}#nav details>a:hover{text-decoration:underline}
+.btn,button{display:inline-block;padding:7px 12px;border:1px solid var(--acc);border-radius:4px;background:transparent;color:var(--acc);font:14px system-ui,sans-serif;cursor:pointer;text-decoration:none}
+.btn:hover,button:hover{background:var(--acc);color:var(--bg)}
+#side .btn{margin-top:12px}
+main{flex:1;min-width:0;padding:32px clamp(18px,5vw,64px);max-width:1000px}
+h1{font-size:2.3rem;line-height:1.15;margin:.2em 0 .1em;border-bottom:2px solid var(--gold);padding-bottom:.15em}
+h2{border-bottom:1px solid var(--line);padding-bottom:.1em;margin-top:1.6em}
+.meta{color:var(--mute);font:14px system-ui,sans-serif;margin-bottom:12px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;float:right;margin-top:6px}
+.badge{font:12px system-ui,sans-serif;background:var(--gold);color:var(--bg);padding:2px 7px;border-radius:3px}
+.infobox{float:right;width:270px;margin:0 0 16px 22px;border:1px solid var(--line);background:var(--panel);font:15px/1.4 system-ui,sans-serif}
+.infobox h3{margin:0;padding:8px 10px;background:var(--acc);color:var(--bg);text-align:center;font-size:16px}
+.infobox img{display:block;width:100%}
+.infobox table{width:100%;border-collapse:collapse}.infobox th,.infobox td{padding:6px 10px;border-top:1px solid var(--line);vertical-align:top;text-align:left}.infobox th{width:38%;color:var(--mute);font-weight:600}
+#toc{display:inline-block;border:1px solid var(--line);background:var(--panel);padding:8px 16px;margin:6px 0 14px;font:14px/1.5 system-ui,sans-serif}
+#toc b{display:block}#toc a{display:block;text-decoration:none}#toc a.s{padding-left:14px}
+.body img{max-width:100%;height:auto}.body blockquote{margin:1em 0;padding:.2em 1em;border-left:4px solid var(--gold);color:var(--mute)}
+.body table{border-collapse:collapse}.body td,.body th{border:1px solid var(--line);padding:5px 10px}
+.body:after,article:after{content:"";display:block;clear:both}
+.back{margin-top:2.4em;padding-top:.8em;border-top:1px solid var(--line);font:15px system-ui,sans-serif}
+.editor label{display:block;font:14px system-ui,sans-serif;color:var(--mute)}.editor input{width:100%;padding:7px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:4px;font:15px monospace;margin:4px 0 10px}
+.tb{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+textarea{width:100%;min-height:60vh;padding:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:4px;font:14px/1.5 ui-monospace,Menlo,Consolas,monospace;resize:vertical}
+#pv{border:1px dashed var(--line);padding:4px 14px;overflow:auto;max-height:70vh}
+.res{margin:0 0 14px}.res small{display:block;color:var(--mute);font:14px system-ui,sans-serif}
+.note{font:14px/1.5 system-ui,sans-serif;color:var(--mute);margin-top:12px}
+@media(max-width:820px){body{flex-direction:column}#side{width:auto;height:auto;max-height:44vh;position:static;border-right:0;border-bottom:1px solid var(--line)}.split{grid-template-columns:1fr}.infobox{float:none;width:100%;margin:0 0 16px}}
+</style></head>
+<body>
+<aside id="side"><a class="brand" id="brand" href="#/home"></a><input id="q" type="search" placeholder="Buscar na wiki"><nav id="nav"></nav><a class="btn" href="#/nova">Nova página</a></aside>
+<main id="main">Carregando…</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script>
+// ====== CONFIGURAÇÃO ======
+const CONFIG={
+  title:"Crônicas do Meu Mundo",   // nome da wiki
+  repo:"Lordello27/Wiki-Sociedade",                         // "seu-usuario/nome-do-repo" (ativa o botão "Editar no GitHub")
+  branch:"main"
+};
+// ==========================
+const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const slugify=s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9/]+/g,'-').replace(/^-+|-+$/g,'');
+let pages={},drafts={};
+try{drafts=JSON.parse(localStorage.getItem('wiki-drafts')||'{}')}catch(e){}
+const saveDrafts=()=>{try{localStorage.setItem('wiki-drafts',JSON.stringify(drafts))}catch(e){}};
+
+function parse(raw){
+  const m=raw.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/),meta={info:{}};let body=raw;
+  if(m){body=m[2];let sec=null;
+    m[1].split('\n').forEach(l=>{const k=l.match(/^(\s*)([^:#]+):\s*(.*)$/);if(!k)return;
+      const key=k[2].trim(),v=k[3].trim();
+      if(k[1]&&sec==='infobox'){if(v)meta.info[key]=v}
+      else if(key==='infobox')sec='infobox';
+      else{meta[key]=v;sec=null}})}
+  return{meta,body};
+}
+function add(slug,raw,draft){
+  const{meta,body}=parse(raw);
+  pages[slug]={slug,raw,body,draft:!!draft,info:meta.info,
+    title:meta.titulo||meta.title||slug.split('/').pop().replace(/-/g,' '),
+    cat:meta.categoria||meta.category||'Sem categoria',img:meta.imagem||meta.image||''};
+}
+const find=t=>{t=t.trim().toLowerCase();return Object.values(pages).find(p=>p.title.toLowerCase()==t||p.slug.toLowerCase()==t)};
+function md(b,inline){
+  b=b.replace(/\[\[([^\]|]+)\|?([^\]]*)\]\]/g,(_,t,a)=>{const p=find(t),l=a||t;
+    return p?`[${l}](#/${p.slug})`:`<a class="red" href="#/nova/${encodeURIComponent(t.trim())}" title="Esta página ainda não existe">${l}</a>`});
+  return inline?marked.parseInline(b):marked.parse(b);
+}
+function nav(){
+  const c={};Object.values(pages).forEach(p=>(c[p.cat]=c[p.cat]||[]).push(p));
+  $('#nav').innerHTML=Object.keys(c).sort().map(k=>`<details open><summary><a href="#/categoria/${encodeURIComponent(k)}">${esc(k)}</a></summary>${c[k].sort((a,b)=>a.title.localeCompare(b.title)).map(p=>`<a href="#/${p.slug}">${esc(p.title)}</a>`).join('')}</details>`).join('');
+}
+function view(p){
+  const back=Object.values(pages).filter(o=>o!==p&&[...o.body.matchAll(/\[\[([^\]|]+)/g)].some(m=>find(m[1])===p));
+  const info=Object.entries(p.info);
+  const box=(p.img||info.length)?`<aside class="infobox"><h3>${esc(p.title)}</h3>${p.img?`<img src="${esc(p.img)}" alt="${esc(p.title)}">`:''}<table>${info.map(([k,v])=>`<tr><th>${esc(k)}</th><td>${md(v,1)}</td></tr>`).join('')}</table></aside>`:'';
+  $('#main').innerHTML=`<article><div class="actions">${p.draft?'<span class="badge">rascunho local</span>':''}<a class="btn" href="#/editar/${p.slug}">Editar</a></div>
+  <h1>${esc(p.title)}</h1><div class="meta">Categoria: <a href="#/categoria/${encodeURIComponent(p.cat)}">${esc(p.cat)}</a></div>
+  ${box}<div id="toc"></div><div class="body">${md(p.body)}</div>
+  ${back.length?`<div class="back">Páginas que mencionam esta: ${back.map(o=>`<a href="#/${o.slug}">${esc(o.title)}</a>`).join(', ')}</div>`:''}</article>`;
+  const hs=[...document.querySelectorAll('.body h2,.body h3')];
+  if(hs.length>=3){$('#toc').innerHTML='<b>Conteúdo</b>'+hs.map((h,i)=>{h.id='s'+i;return`<a class="${h.tagName=='H3'?'s':''}" href="#/${p.slug}" data-t="s${i}">${esc(h.textContent)}</a>`}).join('');
+    $('#toc').onclick=e=>{const t=e.target.dataset&&e.target.dataset.t;if(t){e.preventDefault();document.getElementById(t).scrollIntoView()}}}
+  else $('#toc').remove();
+  document.title=p.title+' · '+CONFIG.title;
+}
+function catPage(c){
+  const l=Object.values(pages).filter(p=>p.cat==c).sort((a,b)=>a.title.localeCompare(b.title));
+  $('#main').innerHTML=`<h1>${esc(c)}</h1><div class="meta">${l.length} página(s)</div><ul>${l.map(p=>`<li><a href="#/${p.slug}">${esc(p.title)}</a></li>`).join('')}</ul>`;
+}
+function search(q){
+  const t=q.toLowerCase().trim();$('#q').value=q;
+  const r=t?Object.values(pages).map(p=>{const i=p.body.toLowerCase().indexOf(t),ti=p.title.toLowerCase().includes(t);
+    return(i>=0||ti)?{p,s:(ti?2:0)+(i>=0?1:0),sn:i>=0?p.body.slice(Math.max(0,i-60),i+100).replace(/[#*_\[\]>`]/g,''):''}:null}).filter(Boolean).sort((a,b)=>b.s-a.s):[];
+  $('#main').innerHTML=`<h1>Busca</h1><div class="meta">${r.length} resultado(s) para “${esc(q)}”</div>${r.map(x=>`<div class="res"><a href="#/${x.p.slug}">${esc(x.p.title)}</a><small>${esc(x.p.cat)}${x.sn?' — …'+esc(x.sn)+'…':''}</small></div>`).join('')}`;
+}
+function editor(slug,title){
+  const p=pages[slug],isNew=!p;
+  const raw=p?p.raw:`---\ntitulo: ${title||''}\ncategoria: \nimagem: \ninfobox:\n  Campo: valor\n---\n\nEscreva aqui. Use [[Outra Página]] para criar links entre páginas.\n`;
+  $('#main').innerHTML=`<div class="editor"><h1>${isNew?'Nova página':'Editando: '+esc(p.title)}</h1>
+  <label>Arquivo (vira content/&lt;nome&gt;.md; pode usar pastas, ex.: npcs/aelira)<input id="slug" value="${esc(slug)}" ${isNew?'':'disabled'}></label>
+  <div class="tb"><button data-w="**|**|negrito">B</button><button data-w="*|*|itálico">I</button><button data-w="\n## |\n|Título">Título</button><button data-w="[[|]]|Página">[[Link]]</button><button data-w="![descrição](|)|images/arquivo.png">Imagem</button><button data-w="\n- |\n|item">Lista</button><button data-w="\n> |\n|citação">Citação</button></div>
+  <div class="split"><textarea id="ta" spellcheck="false"></textarea><div id="pv" class="body"></div></div>
+  <div class="actions" style="float:none;margin-top:12px"><button id="sv">Salvar rascunho neste navegador</button><button id="dl">Baixar .md</button><button id="cp">Copiar texto</button><button id="gh">Abrir no GitHub</button>${p&&p.draft?'<button id="dc">Descartar rascunho</button>':''}<a class="btn" href="#/${isNew?'home':slug}">Cancelar</a></div>
+  <p class="note">Rascunhos só aparecem neste navegador. Para publicar para todos: copie o texto, abra no GitHub e faça o commit.</p></div>`;
+  const ta=$('#ta'),pv=()=>$('#pv').innerHTML=md(parse(ta.value).body);ta.value=raw;pv();ta.oninput=pv;
+  document.querySelectorAll('.tb button').forEach(b=>b.onclick=()=>{const[a,z,ph]=b.dataset.w.split('|'),s=ta.selectionStart,e=ta.selectionEnd,sel=ta.value.slice(s,e)||ph;
+    ta.setRangeText(a+sel+z,s,e,'select');ta.focus();pv()});
+  const fn=()=>(isNew?slugify($('#slug').value):slug)||'nova-pagina';
+  $('#sv').onclick=()=>{const s=fn();drafts[s]=ta.value;saveDrafts();add(s,ta.value,1);nav();location.hash='#/'+s};
+  $('#dl').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ta.value],{type:'text/markdown'}));a.download=fn().split('/').pop()+'.md';a.click()};
+  $('#cp').onclick=async()=>{try{await navigator.clipboard.writeText(ta.value);$('#cp').textContent='Copiado'}catch(e){ta.select()}};
+  $('#gh').onclick=()=>{if(!CONFIG.repo)return alert('Defina CONFIG.repo no index.html (ex.: "usuario/repositorio") para usar este botão.');
+    const b=`https://github.com/${CONFIG.repo}`;
+    window.open(isNew?`${b}/new/${CONFIG.branch}?filename=content/${fn()}.md&value=${encodeURIComponent(ta.value)}`:`${b}/edit/${CONFIG.branch}/content/${slug}.md`,'_blank')};
+  if($('#dc'))$('#dc').onclick=()=>{delete drafts[slug];saveDrafts();location.hash='#/home';location.reload()};
+}
+function route(){
+  let h=decodeURIComponent(location.hash.slice(2))||'home',m;scrollTo(0,0);
+  if(m=h.match(/^categoria\/(.+)/))return catPage(m[1]);
+  if(m=h.match(/^busca\/(.*)/))return search(m[1]);
+  if(m=h.match(/^editar\/(.+)/))return editor(m[1]);
+  if(m=h.match(/^nova(?:\/(.+))?$/))return editor(slugify(m[1]||''),m[1]||'');
+  if(pages[h])return view(pages[h]);
+  $('#main').innerHTML=Object.keys(pages).length?`<h1>Página não encontrada</h1><p>Não existe “${esc(h)}”. <a href="#/nova/${encodeURIComponent(h)}">Criar esta página</a> ou <a href="#/home">voltar ao início</a>.</p>`
+   :`<h1>Wiki vazia</h1><p>Nenhuma página foi carregada. Confira se existe <code>content/index.json</code> e se está abrindo o site por um servidor (não direto do arquivo).</p>`;
+}
+async function init(){
+  $('#brand').textContent=CONFIG.title;document.title=CONFIG.title;
+  let list=[];try{list=await(await fetch('content/index.json')).json()}catch(e){}
+  await Promise.all(list.map(async f=>{try{const r=await fetch('content/'+f);if(r.ok)add(f.replace(/\.md$/,''),(await r.text()).replace(/\r/g,''))}catch(e){}}));
+  for(const s in drafts)add(s,drafts[s],1);
+  nav();$('#q').oninput=e=>{location.hash='#/busca/'+encodeURIComponent(e.target.value)};
+  window.onhashchange=route;route();
+}
+init();
+</script></body></html>
